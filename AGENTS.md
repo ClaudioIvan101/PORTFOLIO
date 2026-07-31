@@ -1,5 +1,5 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+<!-- BEGIN:astro-agent-rules -->
+# Astro project rules
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+Read the relevant guide in `node_modules/astro/` or the official Astro documentation before introducing framework-specific APIs. Keep the site static unless interactivity is explicitly required.
+<!-- END:astro-agent-rules -->

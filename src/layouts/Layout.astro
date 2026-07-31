@@ -1,0 +1,36 @@
+---
+import Header from "../components/header";
+import "../styles/global.css";
+
+const title = "Claudio Gomez - Engineer";
+const description = "Claudio Gomez Software Engineer FullStack Portfolio";
+---
+
+<!doctype html>
+<html lang="es" class="h-full antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen">
+    <div class="site-shell">
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <footer class="flex flex-col gap-2 border-t border-[#17201c]/25 bg-[#17201c] px-5 py-8 text-[#f6f4ef] sm:flex-row sm:items-center sm:justify-between sm:px-[7vw]">
+        <div>
+          <h2 class="text-xl font-medium tracking-[-.04em]">Claudio Gómez</h2>
+          <p class="mt-1 text-sm text-[#f6f4ef]/65">Software Engineer</p>
+        </div>
+        <a href="#sobre-mi" class="text-sm font-bold uppercase tracking-[.16em] text-[#f6f4ef]/80 transition hover:text-[#e85d35]">Volver arriba ↑</a>
+      </footer>
+    </div>
+  </body>
+</html>
