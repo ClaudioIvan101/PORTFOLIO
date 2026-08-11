@@ -1,9 +1,10 @@
 ---
-import Header from "../components/header";
+import Header from "../components/layout/Header";
 import "../styles/global.css";
+import { site } from "../data/portfolio";
 
-const title = "Claudio Gomez - Engineer";
-const description = "Claudio Gomez Software Engineer FullStack Portfolio";
+const title = `${site.name} - Engineer`;
+const description = site.description;
 ---
 
 <!doctype html>
@@ -24,10 +25,10 @@ const description = "Claudio Gomez Software Engineer FullStack Portfolio";
       <main>
         <slot />
       </main>
-      <footer class="flex flex-col gap-2 border-t border-[#17201c]/25 bg-[#17201c] px-5 py-8 text-[#f6f4ef] sm:flex-row sm:items-center sm:justify-between sm:px-[7vw]">
+      <footer class="flex flex-col gap-2 border-t border-[#17201c]/25 bg-[#27364a] px-5 py-8 text-[#f6f4ef] sm:flex-row sm:items-center sm:justify-between sm:px-[7vw]">
         <div>
-          <h2 class="text-xl font-medium tracking-[-.04em]">Claudio Gómez</h2>
-          <p class="mt-1 text-sm text-[#f6f4ef]/65">Software Engineer</p>
+          <h2 class="text-xl font-medium tracking-[-.04em]">{site.name}</h2>
+          <p class="mt-1 text-sm text-[#f6f4ef]/65">{site.role}</p>
         </div>
         <a href="#sobre-mi" class="text-sm font-bold uppercase tracking-[.16em] text-[#f6f4ef]/80 transition hover:text-[#e85d35]">Volver arriba ↑</a>
       </footer>

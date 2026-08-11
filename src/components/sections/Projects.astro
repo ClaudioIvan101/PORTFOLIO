@@ -1,0 +1,12 @@
+---
+import { projects } from "../../data/portfolio";
+import ProjectCard from "../ui/ProjectCard.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+---
+
+<section id="proyectos" class="page-section bg-[#f6f4ef] text-[#17201c]">
+  <SectionHeading title="Proyectos" />
+  <div class="grid gap-6 md:grid-cols-2">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+</section>

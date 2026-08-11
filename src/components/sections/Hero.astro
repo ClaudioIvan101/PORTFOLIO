@@ -1,0 +1,28 @@
+---
+import { hero, site } from "../../data/portfolio";
+---
+
+<section id="sobre-mi" class="hero-section flex scroll-mt-0 items-center bg-[#f6f4ef]">
+  <div class="mx-auto grid w-full max-w-[1500px] items-center gap-10 lg:grid-cols-[minmax(0,1.65fr)_minmax(15rem,.55fr)] lg:gap-10">
+    <div class="max-w-5xl">
+      <p class="mb-6 text-xs font-medium uppercase tracking-[.42em] text-[#637084] sm:text-base">{site.name}</p>
+      <h1 class="max-w-[11ch] text-[clamp(2.75rem,5.1vw,5.25rem)] font-extrabold leading-[.98] tracking-[-.07em] text-black">{hero.titlePrimary} <span class="whitespace-nowrap">{hero.titleEmphasis}</span></h1>
+      <p class="mt-7 max-w-2xl text-base leading-[1.7] text-[#637084] sm:text-lg">{hero.intro}</p>
+      <p class="mt-7 flex items-center gap-2.5 text-sm font-medium text-[#637084] sm:text-base">
+        <svg class="size-5 shrink-0 text-[#27364a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.25 7-12a7 7 0 1 0-14 0c0 6.75 7 12 7 12Z" />
+          <circle cx="12" cy="9" r="2.25" />
+        </svg>
+        {site.location}
+      </p>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a href="#contacto" class="rounded-2xl bg-[#27364a] px-8 py-4 text-base font-medium text-white shadow-[0_8px_15px_rgba(39,54,74,.24)] transition hover:-translate-y-0.5 hover:bg-[#e85d35]">{hero.primaryAction}</a>
+        <a href="#proyectos" class="rounded-2xl border-2 border-[#27364a] px-8 py-4 text-base font-medium text-[#27364a] transition hover:bg-[#27364a] hover:text-white">{hero.secondaryAction}</a>
+      </div>
+    </div>
+    <div class="mx-auto w-full max-w-[18rem] lg:justify-self-end">
+      <div class="portrait-frame" role="img" aria-label={hero.portraitLabel}><span class="portrait-monogram">CG</span></div>
+      <p class="mt-4 text-center text-xs font-medium uppercase tracking-[.18em] text-[#637084]">{hero.portraitCaption}</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+import type { Project } from "../../data/portfolio";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const actionClass = project.variant === "filled"
+  ? "bg-[#27364a] text-white shadow-[0_8px_15px_rgba(39,54,74,.24)] hover:bg-[#e85d35]"
+  : "border-2 border-[#27364a] text-[#27364a] hover:bg-[#27364a] hover:text-white";
+---
+
+<article class="surface-card group flex min-h-80 flex-col p-8 sm:p-10">
+  <div class="flex items-center justify-between">
+    <p class="font-mono text-xs tracking-[.14em] text-[#e85d35]">{project.number} / {project.category}</p>
+    <span class="text-2xl text-[#27364a] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true">&nearr;</span>
+  </div>
+  <h3 class="mt-16 text-3xl font-extrabold tracking-[-.06em] text-black sm:text-4xl">{project.title}</h3>
+  <p class="mt-4 max-w-sm leading-[1.7] text-[#637084]">{project.description}</p>
+  <a href={project.href} class={`mt-8 inline-flex w-fit items-center rounded-2xl px-7 py-3.5 text-sm font-medium transition duration-300 hover:-translate-y-0.5 ${actionClass}`}>{project.actionLabel}</a>
+</article>

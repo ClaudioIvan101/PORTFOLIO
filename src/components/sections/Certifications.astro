@@ -1,0 +1,16 @@
+---
+import { certification } from "../../data/portfolio";
+import SectionHeading from "../ui/SectionHeading.astro";
+---
+
+<section id="certificaciones" class="page-section bg-[#f6f4ef]">
+  <SectionHeading title="Certificaciones" />
+  <div class="surface-card grid gap-8 p-8 sm:p-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+    <div>
+      <p class="font-mono text-xs font-bold uppercase tracking-[.16em] text-[#e85d35]">{certification.eyebrow}</p>
+      <h3 class="mt-12 max-w-xl text-3xl font-extrabold tracking-[-.06em] text-black sm:text-4xl">{certification.title}</h3>
+      <p class="mt-4 max-w-2xl leading-[1.7] text-[#637084]">{certification.description}</p>
+    </div>
+    <span class="grid size-14 place-items-center rounded-2xl bg-[#27364a] text-2xl text-white shadow-[0_8px_15px_rgba(39,54,74,.24)]" aria-hidden="true">&#10022;</span>
+  </div>
+</section>
