@@ -17,12 +17,17 @@ import { hero, site } from "../../data/portfolio";
       </p>
       <div class="mt-9 flex flex-wrap gap-4">
         <a href="#contacto" class="rounded-2xl bg-[#27364a] px-8 py-4 text-base font-medium text-white shadow-[0_8px_15px_rgba(39,54,74,.24)] transition hover:-translate-y-0.5 hover:bg-[#e85d35]">{hero.primaryAction}</a>
-        <a href="#proyectos" class="rounded-2xl border-2 border-[#27364a] px-8 py-4 text-base font-medium text-[#27364a] transition hover:bg-[#27364a] hover:text-white">{hero.secondaryAction}</a>
+        <a href="#proyectos" class="inline-flex items-center gap-2 rounded-2xl border-2 border-[#27364a] px-8 py-4 text-base font-medium text-[#27364a] transition hover:bg-[#27364a] hover:text-white">
+          <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+          {hero.secondaryAction}
+        </a>
       </div>
     </div>
     <div class="mx-auto w-full max-w-[18rem] lg:justify-self-end">
       <div class="portrait-frame" role="img" aria-label={hero.portraitLabel}><span class="portrait-monogram">CG</span></div>
-      <p class="mt-4 text-center text-xs font-medium uppercase tracking-[.18em] text-[#637084]">{hero.portraitCaption}</p>
     </div>
   </div>
 </section>

@@ -34,7 +34,7 @@ export const site = {
   brand: "Claudio.dev",
   role: "Full Stack Software Engineer",
   description: "Claudio Gomez Software Engineer FullStack Portfolio",
-  location: "Buenos Aires, Argentina",
+  location: "Argentina",
   email: "claudiogomez.work1@gmail.com",
   phone: "+54 362 405 9876",
 };
@@ -52,9 +52,8 @@ export const hero = {
   titleEmphasis: "Software Engineer",
   intro: "Hola, soy Claudio, un software engineer especializado en desarrollo web moderno. Creo aplicaciones rápidas, escalables y listas para producción, con interfaces claras y arquitectura sólida.",
   portraitLabel: "Espacio reservado para retrato de Claudio Gómez",
-  portraitCaption: "Retrato próximamente",
   primaryAction: "Contactarme",
-  secondaryAction: "Ver proyectos",
+  secondaryAction: "cv",
 };
 
 export const projects: Project[] = [
@@ -69,6 +68,15 @@ export const projects: Project[] = [
   },
   {
     number: "02",
+    category: "PRODUCTO",
+    title: "Próximo caso",
+    description: "Otro lugar con separación nítida para destacar los resultados que más importan.",
+    href: "#contacto",
+    actionLabel: "Ver caso",
+    variant: "outline",
+  },
+  {
+    number: "03",
     category: "PRODUCTO",
     title: "Próximo caso",
     description: "Otro lugar con separación nítida para destacar los resultados que más importan.",
