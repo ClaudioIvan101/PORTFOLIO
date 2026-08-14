@@ -4,9 +4,9 @@ import ProjectCard from "../ui/ProjectCard.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 ---
 
-<section id="proyectos" class="page-section bg-[#f6f4ef] text-[#17201c]">
+<section id="proyectos" class="page-section projects-section bg-[#f6f4ef] text-[#17201c]">
   <SectionHeading title="Proyectos" />
-  <div class="grid gap-6 md:grid-cols-2">
+  <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
     {projects.map((project) => <ProjectCard project={project} />)}
   </div>
 </section>

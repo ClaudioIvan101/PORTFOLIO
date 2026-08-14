@@ -1,24 +1,39 @@
 ---
 import type { Project } from "../../data/portfolio";
+import TechnologyIcon, { technologyMeta } from "./TechnologyIcon";
 
 interface Props {
   project: Project;
 }
 
 const { project } = Astro.props;
-const actionClass = project.variant === "filled"
-  ? "bg-[#27364a] text-white shadow-[0_8px_15px_rgba(39,54,74,.24)] hover:bg-[#e85d35]"
-  : "border-2 border-[#27364a] text-[#27364a] hover:bg-[#27364a] hover:text-white";
 ---
 
-<article class="surface-card group flex w-full max-w-[30rem] flex-col justify-self-center gap-1 p-4 sm:p-5">
-  <div class="aspect-square h-80 w-100 rounded-2xl border-2 border-[#27364a] bg-[#e6e2d8] ">
-    <div class="flex items-center justify-between p-5">
-      <p class="font-mono text-xs tracking-[.14em] text-[#e85d35]">{project.number} {project.category}</p>
-      <span class="text-2xl text-[#27364a] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true">&nearr;</span>
+<article class="surface-card">
+  <a href={project.href} class="group flex w-full flex-col gap-3 p-3 no-underline sm:p-4" aria-label={`Ver ${project.title}`}>
+    <div class="project-visual">
+      <p class="project-visual-title">{project.title}</p>
+      <div class="project-preview" role="img" aria-label={`Vista previa de ${project.title}`}></div>
     </div>
-  </div>
-  <h3 class="text-xl font-extrabold tracking-[-.06em] text-black sm:text-2xl">{project.title}</h3>
-  <p class="max-w-sm text-sm leading-[1.7] text-[#637084] line-clamp-2">{project.description}</p>
-  <a href={project.href} class={`mt-1 inline-flex w-fit items-center rounded-2xl px-6 py-2.5 text-sm font-medium transition duration-300 hover:-translate-y-0.5 ${actionClass}`}>{project.actionLabel}</a>
+
+    <div class="flex items-center justify-between gap-4">
+      <h3 class="text-lg font-extrabold tracking-[-.06em] text-black sm:text-xl">{project.title}</h3>
+      <span class="project-link" aria-hidden="true">&#8601;</span>
+    </div>
+
+    <p class="text-sm leading-[1.7] text-[#637084]">{project.description}</p>
+
+    <div class="flex flex-wrap gap-2" aria-label="Tecnolog&iacute;as utilizadas">
+      {project.technologies.map((technologyKey) => {
+        const technology = technologyMeta[technologyKey];
+
+        return (
+          <span class="project-technology" role="img" aria-label={technology.label} style={`--technology-color: ${technology.color}`}>
+            <TechnologyIcon icon={technologyKey} size={18} />
+            <span class="project-technology-name">{technology.label}</span>
+          </span>
+        );
+      })}
+    </div>
+  </a>
 </article>

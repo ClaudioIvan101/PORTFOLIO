@@ -1,5 +1,6 @@
 ---
 import Header from "../components/layout/Header";
+import InteractiveGridBackground from "../components/ui/InteractiveGridBackground.astro";
 import "../styles/global.css";
 import { site } from "../data/portfolio";
 
@@ -20,6 +21,7 @@ const description = site.description;
     <title>{title}</title>
   </head>
   <body class="min-h-screen">
+    <InteractiveGridBackground />
     <div class="site-shell">
       <Header />
       <main>

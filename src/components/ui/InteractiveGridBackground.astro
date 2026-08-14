@@ -1,0 +1,163 @@
+<canvas class="interactive-grid-background" aria-hidden="true"></canvas>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>(".interactive-grid-background");
+
+  if (canvas) {
+    const context = canvas.getContext("2d");
+    const compactQuery = window.matchMedia("(max-width: 639px)");
+    const siteShell = document.querySelector<HTMLElement>(".site-shell");
+
+    if (context) {
+      const state = {
+        width: 0,
+        height: 0,
+        scale: 1,
+        active: false,
+        targetX: 0,
+        targetY: 0,
+        lensX: 0,
+        lensY: 0,
+        targetStrength: 0,
+        strength: 0,
+        frame: 0,
+      };
+
+      const spacing = 40;
+      const radius = 230;
+      const maximumShift = 48;
+      const draw = () => {
+        state.frame = 0;
+
+        if (compactQuery.matches) return;
+
+        state.lensX += (state.targetX - state.lensX) * 0.18;
+        state.lensY += (state.targetY - state.lensY) * 0.18;
+        state.strength += (state.targetStrength - state.strength) * 0.16;
+
+        const { width, height, scale, lensX, lensY, strength } = state;
+        context.setTransform(scale, 0, 0, scale, 0, 0);
+        context.clearRect(0, 0, width, height);
+
+        const gradient = context.createRadialGradient(
+          strength > 0.02 ? lensX : width * 0.5,
+          strength > 0.02 ? lensY : height * 0.45,
+          0,
+          width * 0.5,
+          height * 0.45,
+          Math.max(width, height) * 0.75,
+        );
+        gradient.addColorStop(0, "#485a70");
+        gradient.addColorStop(0.5, "#34475c");
+        gradient.addColorStop(1, "#27364a");
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, width, height);
+
+        const rows = Math.ceil(height / spacing) + 3;
+        const columns = Math.ceil(width / spacing) + 3;
+        const offsetX = -(spacing * 1.5);
+        const offsetY = -(spacing * 1.5);
+        const pointAt = (column: number, row: number) => {
+          const x = offsetX + column * spacing;
+          const y = offsetY + row * spacing;
+          const distanceX = x - lensX;
+          const distanceY = y - lensY;
+          const distance = Math.hypot(distanceX, distanceY);
+          const influence = Math.max(0, 1 - distance / radius) * strength;
+          const shift = influence * influence * maximumShift;
+          const inverseDistance = distance ? 1 / distance : 0;
+
+          return {
+            x: x + distanceX * inverseDistance * shift,
+            y: y + distanceY * inverseDistance * shift,
+            influence,
+          };
+        };
+
+        context.beginPath();
+        for (let row = 0; row < rows; row += 1) {
+          for (let column = 0; column < columns; column += 1) {
+            const point = pointAt(column, row);
+            if (column < columns - 1) {
+              const right = pointAt(column + 1, row);
+              context.moveTo(point.x, point.y);
+              context.lineTo(right.x, right.y);
+            }
+            if (row < rows - 1) {
+              const bottom = pointAt(column, row + 1);
+              context.moveTo(point.x, point.y);
+              context.lineTo(bottom.x, bottom.y);
+            }
+          }
+        }
+        context.strokeStyle = "rgba(214, 226, 239, 0.26)";
+        context.lineWidth = 0.9;
+        context.stroke();
+
+        for (let row = 0; row < rows; row += 1) {
+          for (let column = 0; column < columns; column += 1) {
+            const point = pointAt(column, row);
+            context.beginPath();
+            context.arc(point.x, point.y, 1.35 + point.influence * 4.2, 0, Math.PI * 2);
+            context.fillStyle = point.influence > 0 ? "#f7a286" : "rgba(240, 246, 252, 0.72)";
+            context.fill();
+          }
+        }
+
+        const positionDelta = Math.hypot(state.targetX - state.lensX, state.targetY - state.lensY);
+        if (Math.abs(state.targetStrength - state.strength) > 0.005 || (state.targetStrength > 0.005 && positionDelta > 0.5)) {
+          scheduleDraw();
+        }
+      };
+
+      const scheduleDraw = () => {
+        if (!state.frame) state.frame = requestAnimationFrame(draw);
+      };
+
+      const resize = () => {
+        state.width = window.innerWidth;
+        state.height = window.innerHeight;
+        state.scale = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.round(state.width * state.scale);
+        canvas.height = Math.round(state.height * state.scale);
+        canvas.style.width = `${state.width}px`;
+        canvas.style.height = `${state.height}px`;
+        scheduleDraw();
+      };
+
+      const deactivate = () => {
+        if (!state.active && state.targetStrength === 0) return;
+        state.active = false;
+        state.targetStrength = 0;
+        scheduleDraw();
+      };
+
+      const handleMove = (event: PointerEvent) => {
+        if (compactQuery.matches || event.pointerType === "touch") {
+          deactivate();
+          return;
+        }
+
+        const bounds = siteShell?.getBoundingClientRect();
+        const isOverContent = bounds && event.clientX >= bounds.left && event.clientX <= bounds.right;
+        if (isOverContent) {
+          deactivate();
+          return;
+        }
+
+        state.active = true;
+        state.targetX = event.clientX;
+        state.targetY = event.clientY;
+        state.targetStrength = 1;
+        scheduleDraw();
+      };
+
+      window.addEventListener("resize", resize, { passive: true });
+      window.addEventListener("pointermove", handleMove, { passive: true });
+      document.documentElement.addEventListener("pointerleave", deactivate);
+      window.addEventListener("blur", deactivate);
+      compactQuery.addEventListener("change", resize);
+      resize();
+    }
+  }
+</script>

@@ -4,8 +4,7 @@ export type Project = {
   title: string;
   description: string;
   href: string;
-  actionLabel: string;
-  variant: "filled" | "outline";
+  technologies: TechnologyIcon[];
 };
 
 export type TechnologyIcon =
@@ -63,8 +62,7 @@ export const projects: Project[] = [
     title: "Próximo proyecto",
     description: "Un espacio preparado para mostrar el contexto, el proceso y el impacto de tu trabajo.",
     href: "#contacto",
-    actionLabel: "Ver caso",
-    variant: "filled",
+    technologies: ["react", "typescript", "tailwind"],
   },
   {
     number: "02",
@@ -72,8 +70,7 @@ export const projects: Project[] = [
     title: "Próximo caso",
     description: "Otro lugar con separación nítida para destacar los resultados que más importan.",
     href: "#contacto",
-    actionLabel: "Ver caso",
-    variant: "outline",
+    technologies: ["next", "typescript", "postgresql"],
   },
   {
     number: "03",
@@ -81,8 +78,7 @@ export const projects: Project[] = [
     title: "Próximo caso",
     description: "Otro lugar con separación nítida para destacar los resultados que más importan.",
     href: "#contacto",
-    actionLabel: "Ver caso",
-    variant: "outline",
+    technologies: ["java", "spring", "postgresql"],
   },
 ];
 

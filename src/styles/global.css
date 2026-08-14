@@ -18,13 +18,21 @@
 }
 
 body {
-  background: #d9d6ce;
+  background: #27364a;
   color: var(--foreground);
   font-family: "Poppins", sans-serif;
 }
 
+.interactive-grid-background {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
 .site-shell {
   position: relative;
+  z-index: 1;
   width: min(calc(100% - 3rem), 1600px);
   min-height: 100svh;
   margin: 0 auto;
@@ -37,6 +45,13 @@ body {
   left: 50%;
   width: min(calc(100% - 3rem), 1600px);
   transform: translateX(-50%);
+}
+
+@media (min-width: 640px) {
+  .site-shell,
+  .site-header {
+    width: min(calc(100% - clamp(3rem, 9vw, 10rem)), 1600px);
+  }
 }
 
 html {
@@ -63,6 +78,147 @@ html {
   width: clamp(4rem, 12vw, 9rem);
   height: 4px;
   background: var(--accent);
+}
+
+.projects-section {
+  padding-inline: clamp(1.25rem, 3vw, 3rem);
+}
+
+.project-visual {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(23, 32, 28, 0.18);
+  border-radius: 0.75rem;
+  background: #111315;
+}
+
+.project-visual::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 85% 42% at 10% -8%, #ffcf72 0 34%, transparent 35%),
+    radial-gradient(ellipse 70% 48% at 100% 10%, #e85d35 0 39%, transparent 40%),
+    radial-gradient(ellipse 78% 58% at 42% -2%, #f8d8cc 0 37%, transparent 38%),
+    #27364a;
+  content: "";
+  transition: opacity 300ms ease;
+}
+
+.project-preview {
+  position: absolute;
+  inset: 0.7rem;
+  border-radius: 0.45rem;
+  background: #050607;
+  box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.32);
+  transition: transform 300ms ease;
+}
+
+.project-visual-title {
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  left: 50%;
+  width: calc(100% - 2rem);
+  margin: 0;
+  color: #17201c;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  opacity: 0;
+  text-align: center;
+  transform: translate(-50%, -0.4rem);
+  transition: opacity 250ms ease, transform 300ms ease;
+}
+
+.group:hover .project-visual::before,
+.group:focus-within .project-visual::before {
+  opacity: 1;
+}
+
+.group:hover .project-preview,
+.group:focus-within .project-preview {
+  transform: translateY(2.6rem);
+}
+
+.group:hover .project-visual-title,
+.group:focus-within .project-visual-title {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.project-link,
+.project-technology {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(23, 32, 28, 0.16);
+  color: #27364a;
+}
+
+.project-link {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  font-size: 1.25rem;
+  transition: transform 300ms ease;
+}
+
+.group:hover .project-link,
+.group:focus-within .project-link,
+.project-link:focus-visible {
+  transform: rotate(180deg);
+}
+
+.project-technology {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  background: #f6f4ef;
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.project-technology:hover {
+  border-color: var(--technology-color);
+  color: var(--technology-color);
+  transform: translateY(-0.15rem);
+}
+
+.project-technology-name {
+  position: absolute;
+  bottom: calc(100% + 0.45rem);
+  left: 50%;
+  z-index: 2;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.35rem;
+  background: #27364a;
+  color: #fff;
+  font-family: "Courier New", monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 0.2rem);
+  transition: opacity 180ms ease, transform 180ms ease;
+  white-space: nowrap;
+}
+
+.project-technology:hover .project-technology-name {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-visual::before,
+  .project-preview,
+  .project-visual-title,
+  .project-link {
+    transition: none;
+  }
 }
 
 .section-heading {
@@ -215,7 +371,15 @@ html {
   }
 }
 
+@media (max-width: 639px) {
+  .interactive-grid-background {
+    display: none;
+  }
+
+}
+
 @media (max-width: 1023px) {
+
   .hero-section {
     min-height: auto;
     padding-top: 7.5rem;
