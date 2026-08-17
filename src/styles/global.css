@@ -70,16 +70,6 @@ html {
   scroll-margin-top: 5rem;
 }
 
-.page-section::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: clamp(1.25rem, 7vw, 7rem);
-  width: clamp(4rem, 12vw, 9rem);
-  height: 4px;
-  background: var(--accent);
-}
-
 .projects-section {
   padding-inline: clamp(1.25rem, 3vw, 3rem);
 }
@@ -219,10 +209,76 @@ html {
   .project-link {
     transition: none;
   }
+
+  .technology-filter {
+    transition: none;
+  }
+
+  .technology-results {
+    animation: none;
+  }
 }
 
 .section-heading {
   margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.technology-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: -0.75rem 0 2.75rem;
+}
+
+.technology-filter {
+  min-width: 6.25rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid rgba(39, 54, 74, 0.32);
+  border-radius: 999px;
+  background: transparent;
+  color: #27364a;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.technology-filter:hover,
+.technology-filter:focus-visible {
+  transform: translateY(-0.14rem);
+  border-color: #27364a;
+  background: #27364a;
+  color: #f6f4ef;
+}
+
+.technology-filter:focus-visible {
+  outline: 3px solid rgba(232, 93, 53, 0.38);
+  outline-offset: 3px;
+}
+
+.technology-filter.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0.45rem 1rem rgba(232, 93, 53, 0.26);
+}
+
+.technology-results {
+  animation: technology-results-in 260ms ease-out both;
+}
+
+@keyframes technology-results-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .section-title {
@@ -411,4 +467,15 @@ html {
   .surface-card {
     border-radius: 1.25rem;
   }
+
+  .technology-filter-bar {
+    gap: 0.55rem;
+  }
+
+  .technology-filter {
+    min-width: 0;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.78rem;
+  }
+
 }
