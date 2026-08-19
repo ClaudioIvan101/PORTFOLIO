@@ -1,11 +1,16 @@
 import type { ElementType } from "react";
 import { FaJava } from "react-icons/fa";
+import { RiBearSmileFill } from "react-icons/ri";
 import {
+  SiCss,
   SiDocker,
+  SiExpress,
   SiGit,
   SiGithub,
+  SiGnubash,
   SiMongodb,
   SiNextdotjs,
+  SiNodedotjs,
   SiPostgresql,
   SiPostman,
   SiReact,
@@ -22,8 +27,12 @@ const icons: Record<TechnologyIconName, ElementType> = {
   react: SiReact,
   typescript: SiTypescript,
   tailwind: SiTailwindcss,
+  zustand: RiBearSmileFill,
+  css: SiCss,
   java: FaJava,
   spring: SiSpring,
+  node: SiNodedotjs,
+  express: SiExpress,
   postgresql: SiPostgresql,
   mongodb: SiMongodb,
   git: SiGit,
@@ -32,6 +41,7 @@ const icons: Record<TechnologyIconName, ElementType> = {
   docker: SiDocker,
   vercel: SiVercel,
   postman: SiPostman,
+  shell: SiGnubash,
 };
 
 export const technologyMeta: Record<TechnologyIconName, { label: string; color: string }> = {
@@ -39,8 +49,12 @@ export const technologyMeta: Record<TechnologyIconName, { label: string; color: 
   react: { label: "React", color: "#61DAFB" },
   typescript: { label: "TypeScript", color: "#3178C6" },
   tailwind: { label: "Tailwind CSS", color: "#06B6D4" },
+  zustand: { label: "Zustand", color: "#43382c" },
+  css: { label: "CSS", color: "#1572B6" },
   java: { label: "Java", color: "#007396" },
   spring: { label: "Spring Boot", color: "#6DB33F" },
+  node: { label: "Node.js", color: "#5FA04E" },
+  express: { label: "Express.js", color: "#000000" },
   postgresql: { label: "PostgreSQL", color: "#4169E1" },
   mongodb: { label: "MongoDB", color: "#47A248" },
   git: { label: "Git", color: "#F05032" },
@@ -49,6 +63,7 @@ export const technologyMeta: Record<TechnologyIconName, { label: string; color: 
   docker: { label: "Docker", color: "#2496ED" },
   vercel: { label: "Vercel", color: "#111111" },
   postman: { label: "Postman", color: "#FF6C37" },
+  shell: { label: "Shell", color: "#4EAA25" },
 };
 
 type Props = {

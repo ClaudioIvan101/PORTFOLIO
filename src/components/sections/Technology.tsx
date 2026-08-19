@@ -27,16 +27,16 @@ function StackCard({ title, items }: TechnologyGroup) {
   const CardIcon = cardIcons[title] ?? FaCode;
 
   return (
-    <div className="surface-card flex min-h-72 w-full flex-col gap-8 p-7 sm:p-8">
+    <div className="surface-card flex h-full w-full flex-col gap-6 p-6 sm:p-7">
       <div className="flex items-center gap-2.5">
-        <CardIcon aria-hidden={true} className="text-[#e85d35]" size={17} />
-        <h3 className="text-sm font-medium uppercase tracking-[.09em] text-black">{title}</h3>
+        <CardIcon aria-hidden={true} className="text-[#e85d35]" size={18} />
+        <h3 className="text-sm font-semibold uppercase tracking-[.09em] text-black sm:text-base">{title}</h3>
       </div>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-8 border-t border-[#17201c]/12 pt-7">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-[#17201c]/10 pt-5">
         {items.map(({ icon, name, color }) => (
-          <div key={name} className="group flex flex-col gap-2">
-            <TechnologyIcon icon={icon} color={color} size={32} />
-            <span className="text-sm font-medium text-[#27364a] transition group-hover:text-[#e85d35]">{name}</span>
+          <div key={name} className="group flex items-center gap-3">
+            <TechnologyIcon icon={icon} color={color} size={24} />
+            <span className="text-sm font-medium text-[#27364a] transition-colors duration-200 group-hover:text-[#e85d35]">{name}</span>
           </div>
         ))}
       </div>
@@ -53,11 +53,11 @@ export default function Technology() {
 
     switch (activeFilter) {
       case "languages":
-        return [{ title: "Lenguajes", items: items.filter(({ icon }) => icon === "typescript" || icon === "java") }];
+        return [{ title: "Lenguajes", items: items.filter(({ icon }) => icon === "typescript" || icon === "java" || icon === "shell") }];
       case "frontend":
         return frontend ? [frontend] : [];
       case "backend":
-        return [{ title: "Backend", items: items.filter(({ icon }) => icon === "java" || icon === "spring") }];
+        return [{ title: "Backend", items: items.filter(({ icon }) => icon === "node" || icon === "express" || icon === "java" || icon === "spring") }];
       case "databases":
         return [{ title: "Bases de datos", items: items.filter(({ icon }) => icon === "postgresql" || icon === "mongodb") }];
       case "tools":
@@ -69,25 +69,36 @@ export default function Technology() {
 
   return (
     <section id="tecnologias" className="page-section bg-[#f6f4ef]">
-      <div className="section-heading">
-        <h2 className="section-title">Tecnologías</h2>
-      </div>
-      <p className="-mt-7 mb-10 max-w-2xl text-base leading-[1.7] text-[#637084] sm:text-lg">Herramientas que utilizo en mis flujos de trabajo.</p>
-      <div className="technology-filter-bar" role="toolbar" aria-label="Filtrar tecnologías">
-        {filters.map((filter) => (
-          <button
-            key={filter.id}
-            type="button"
-            className={`technology-filter${activeFilter === filter.id ? " is-active" : ""}`}
-            aria-pressed={activeFilter === filter.id}
-            onClick={() => setActiveFilter(filter.id)}
-          >
-            {filter.label}
-          </button>
-        ))}
-      </div>
-      <div key={activeFilter} className="technology-results grid gap-6 md:grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]">
-        {visibleGroups.map((group) => <StackCard key={group.title} {...group} />)}
+      <div className="mx-auto w-full max-w-[1500px]">
+        <div className="section-heading">
+          <h2 className="section-title text-black">Tecnologías</h2>
+        </div>
+        <p className="-mt-7 mb-10 mx-auto max-w-2xl text-center text-base leading-[1.7] text-[#637084] sm:text-lg">Herramientas que utilizo en mis flujos de trabajo.</p>
+        <div className="technology-filter-bar" role="toolbar" aria-label="Filtrar tecnologías">
+          {filters.map((filter) => (
+            <button
+              key={filter.id}
+              type="button"
+              className={`technology-filter${activeFilter === filter.id ? " is-active" : ""}`}
+              aria-pressed={activeFilter === filter.id}
+              onClick={() => setActiveFilter(filter.id)}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+        <div
+          key={activeFilter}
+          className={`technology-results ${
+            visibleGroups.length === 1
+              ? "mx-auto w-full max-w-[26rem]"
+              : "grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
+          {visibleGroups.map((group) => (
+            <StackCard key={group.title} {...group} />
+          ))}
+        </div>
       </div>
     </section>
   );

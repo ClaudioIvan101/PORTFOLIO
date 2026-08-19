@@ -1,17 +1,11 @@
 ---
-import { contact } from "../../data/portfolio";
 import SectionHeading from "../ui/SectionHeading.astro";
+import ContactForm from "./ContactForm";
 ---
 
 <section id="contacto" class="page-section bg-[#f6f4ef]">
-  <SectionHeading title="Hablemos." />
-  <p class="-mt-7 mb-10 max-w-2xl text-base leading-[1.7] text-[#637084] sm:text-lg">{contact.intro}</p>
-  <div class="grid gap-6 md:grid-cols-2">
-    {contact.methods.map((method) => (
-      <a href={method.href} class={`surface-card contact-link group ${method.size === "email" ? "text-base sm:text-xl" : "text-xl sm:text-2xl"}`}>
-        <span class={`font-medium tracking-[-.035em]${method.size === "email" ? " break-all" : ""}`}>{method.label}</span>
-        <span class="contact-arrow" aria-hidden="true">&nearr;</span>
-      </a>
-    ))}
+  <div class="mx-auto w-full max-w-[1500px]">
+    <SectionHeading title="Hablemos." />
+    <ContactForm client:visible />
   </div>
 </section>

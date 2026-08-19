@@ -65,19 +65,15 @@ html {
 
 .page-section {
   position: relative;
-  padding: clamp(5.5rem, 10vw, 9rem) clamp(1.25rem, 7vw, 7rem);
+  padding: clamp(3rem, 5vw, 4.5rem) clamp(1.25rem, 7vw, 7rem);
   border-top: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
   scroll-margin-top: 5rem;
-}
-
-.projects-section {
-  padding-inline: clamp(1.25rem, 3vw, 3rem);
 }
 
 .project-visual {
   position: relative;
   isolation: isolate;
-  aspect-ratio: 1;
+  aspect-ratio: 16 / 11.5;
   overflow: hidden;
   border: 1px solid rgba(23, 32, 28, 0.18);
   border-radius: 0.75rem;
@@ -100,17 +96,33 @@ html {
 
 .project-preview {
   position: absolute;
-  inset: 0.7rem;
-  border-radius: 0.45rem;
+  top: 3.25rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: 0.5rem 0.5rem 0 0;
   background: #050607;
-  box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.32);
-  transition: transform 300ms ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 0;
+  box-shadow: 0 -0.25rem 1.5rem rgba(0, 0, 0, 0.35);
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms ease;
+  will-change: transform;
+}
+
+.project-preview-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: inherit;
 }
 
 .project-visual-title {
   position: absolute;
   z-index: 1;
-  top: 1rem;
+  top: 0.85rem;
   left: 50%;
   width: calc(100% - 2rem);
   margin: 0;
@@ -121,7 +133,7 @@ html {
   opacity: 0;
   text-align: center;
   transform: translate(-50%, -0.4rem);
-  transition: opacity 250ms ease, transform 300ms ease;
+  transition: opacity 350ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .group:hover .project-visual::before,
@@ -131,7 +143,7 @@ html {
 
 .group:hover .project-preview,
 .group:focus-within .project-preview {
-  transform: translateY(2.6rem);
+  transform: translateY(1.35rem);
 }
 
 .group:hover .project-visual-title,
@@ -221,13 +233,15 @@ html {
 
 .section-heading {
   margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  text-align: center;
 }
 
 .technology-filter-bar {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.7rem;
-  margin: -0.75rem 0 2.75rem;
+  margin: -0.75rem auto 2.75rem;
 }
 
 .technology-filter {
@@ -282,12 +296,15 @@ html {
 }
 
 .section-title {
-  max-width: 12ch;
+  max-width: 100%;
+  margin-inline: auto;
+  color: #000000;
   font-family: "Poppins", sans-serif;
   font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 800;
   letter-spacing: -0.06em;
-  line-height: 0.9;
+  line-height: 1;
+  text-align: center;
 }
 
 .section-rule {
@@ -399,26 +416,15 @@ html {
   will-change: transform;
 }
 
-.portrait-frame::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  inset: 3px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 63% 26%, rgba(232, 93, 53, .68) 0 4%, transparent 4.5%), radial-gradient(ellipse at 47% 41%, #4e5a62 0 16%, transparent 16.5%), radial-gradient(ellipse at 49% 78%, #1d2731 0 37%, transparent 37.5%), repeating-linear-gradient(90deg, transparent 0 11px, rgba(255, 255, 255, .08) 12px 13px), linear-gradient(145deg, #202a35 0%, #536171 50%, #1a222c 100%);
-}
-
-.portrait-monogram {
+.portrait-image {
   position: absolute;
   z-index: 2;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(246, 244, 239, .88);
-  font-size: clamp(3.5rem, 7vw, 5.5rem);
-  font-weight: 800;
-  letter-spacing: -.1em;
-  line-height: .8;
+  inset: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
 }
 
 @keyframes portrait-border-spin {
