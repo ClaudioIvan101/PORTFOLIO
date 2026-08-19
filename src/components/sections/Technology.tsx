@@ -27,16 +27,16 @@ function StackCard({ title, items }: TechnologyGroup) {
   const CardIcon = cardIcons[title] ?? FaCode;
 
   return (
-    <div className="surface-card flex h-full w-full flex-col gap-6 p-6 sm:p-7">
+    <div className="surface-card flex h-full w-full flex-col gap-5 p-5 sm:gap-6 sm:p-7">
       <div className="flex items-center gap-2.5">
         <CardIcon aria-hidden={true} className="text-[#e85d35]" size={18} />
-        <h3 className="text-sm font-semibold uppercase tracking-[.09em] text-black sm:text-base">{title}</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-[.09em] text-black sm:text-base">{title}</h3>
       </div>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-[#17201c]/10 pt-5">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-5 border-t border-[#17201c]/10 pt-5 sm:gap-x-6 sm:gap-y-6">
         {items.map(({ icon, name, color }) => (
-          <div key={name} className="group flex items-center gap-3">
-            <TechnologyIcon icon={icon} color={color} size={24} />
-            <span className="text-sm font-medium text-[#27364a] transition-colors duration-200 group-hover:text-[#e85d35]">{name}</span>
+          <div key={name} className="group flex items-center gap-2.5 sm:gap-3">
+            <TechnologyIcon icon={icon} color={color} size={22} />
+            <span className="text-xs font-medium text-[#27364a] transition-colors duration-200 group-hover:text-[#e85d35] sm:text-sm">{name}</span>
           </div>
         ))}
       </div>

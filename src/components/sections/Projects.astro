@@ -7,7 +7,7 @@ import SectionHeading from "../ui/SectionHeading.astro";
 <section id="proyectos" class="page-section bg-[#f6f4ef]">
   <div class="mx-auto w-full max-w-[1500px]">
     <SectionHeading title="Proyectos" />
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {projects.map((project) => <ProjectCard project={project} />)}
     </div>
   </div>
