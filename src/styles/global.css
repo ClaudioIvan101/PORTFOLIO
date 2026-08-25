@@ -73,40 +73,36 @@ html {
 .project-visual {
   position: relative;
   isolation: isolate;
-  aspect-ratio: 16 / 11.5;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border: 1px solid rgba(23, 32, 28, 0.18);
   border-radius: 0.75rem;
   background: #111315;
 }
 
-.project-visual::before {
+.project-visual-title {
   position: absolute;
-  z-index: -1;
-  inset: 0;
+  z-index: 1;
+  top: 0.75rem;
+  left: 50%;
+  width: calc(100% - 2rem);
+  margin: 0;
+  color: #f6f4ef;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
   opacity: 0;
-  background:
-    radial-gradient(ellipse 85% 42% at 10% -8%, #ffcf72 0 34%, transparent 35%),
-    radial-gradient(ellipse 70% 48% at 100% 10%, #e85d35 0 39%, transparent 40%),
-    radial-gradient(ellipse 78% 58% at 42% -2%, #f8d8cc 0 37%, transparent 38%),
-    #27364a;
-  content: "";
-  transition: opacity 300ms ease;
+  text-align: center;
+  transform: translate(-50%, -0.4rem);
+  transition: opacity 350ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-preview {
   position: absolute;
-  top: 3.25rem;
-  left: 1.5rem;
-  right: 1.5rem;
-  bottom: 0;
+  z-index: 2;
+  inset: 0;
   overflow: hidden;
-  border-radius: 0.5rem 0.5rem 0 0;
-  background: #050607;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 0;
-  box-shadow: 0 -0.25rem 1.5rem rgba(0, 0, 0, 0.35);
-  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms ease;
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
@@ -116,34 +112,11 @@ html {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  border-radius: inherit;
-}
-
-.project-visual-title {
-  position: absolute;
-  z-index: 1;
-  top: 0.85rem;
-  left: 50%;
-  width: calc(100% - 2rem);
-  margin: 0;
-  color: #17201c;
-  font-size: clamp(0.8rem, 1.5vw, 1rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  opacity: 0;
-  text-align: center;
-  transform: translate(-50%, -0.4rem);
-  transition: opacity 350ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.group:hover .project-visual::before,
-.group:focus-within .project-visual::before {
-  opacity: 1;
 }
 
 .group:hover .project-preview,
 .group:focus-within .project-preview {
-  transform: translateY(1.35rem);
+  transform: translateY(2.35rem);
 }
 
 .group:hover .project-visual-title,
@@ -215,7 +188,6 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-visual::before,
   .project-preview,
   .project-visual-title,
   .project-link {
