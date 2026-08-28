@@ -76,11 +76,11 @@ export const projects: Project[] = [
   },
   {
     number: "02",
-    category: "PRODUCTO",
-    title: "Próximo caso",
-    description: "Otro lugar con separación nítida para destacar los resultados que más importan.",
-    href: "#contacto",
-    technologies: ["next", "typescript", "postgresql"],
+    category: "SEO PLATFORM",
+    title: "Rankora",
+    description: "Plataforma de auditoría SEO y seguimiento de posiciones que combina automatización de navegador e IA para generar recomendaciones accionables.",
+    href: "https://seo-track-client.vercel.app/",
+    technologies: ["react", "typescript", "tailwind", "node", "express", "mongodb", "vercel"],
   },
   {
     number: "03",
