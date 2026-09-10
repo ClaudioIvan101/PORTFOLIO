@@ -4,53 +4,137 @@ import TechnologyIcon, { technologyMeta } from "./TechnologyIcon";
 
 interface Props {
   project: Project;
+  index: number;
 }
 
-const { project } = Astro.props;
+const { project, index } = Astro.props;
 const isExternal = project.href.startsWith("http");
+const isReversed = index % 2 !== 0;
 ---
 
-<article class="surface-card">
-  <a
-    href={project.href}
-    target={isExternal ? "_blank" : undefined}
-    rel={isExternal ? "noopener noreferrer" : undefined}
-    class="group flex w-full flex-col gap-3 p-3 no-underline sm:p-4"
-    aria-label={`Ver ${project.title}`}
-  >
-    <div class="project-visual">
-      <p class="project-visual-title">{project.title}</p>
-      <div class="project-preview" role="img" aria-label={`Vista previa de ${project.title}`}>
-        {project.image && (
-          <img
-            src={project.image}
-            alt={`Vista previa de ${project.title}`}
-            class="project-preview-image"
-            loading="lazy"
-            decoding="async"
-          />
+<article class="group relative overflow-hidden rounded-[2rem] border border-[#17201c]/10 bg-white p-6 shadow-[0_4px_25px_rgba(39,54,74,0.06)] transition-all duration-300 hover:border-[#e85d35]/35 hover:shadow-[0_12px_40px_rgba(39,54,74,0.1)] sm:p-8 lg:p-10">
+  <div class={`flex flex-col gap-8 lg:gap-12 lg:items-center ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
+    
+    {/* Columna de Contenido */}
+    <div class="flex flex-1 flex-col justify-center">
+      {/* Categoría / Eyebrow */}
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-[0.16em] text-[#637084]">
+          {project.category}
+        </span>
+        {project.number && (
+          <>
+            <span class="text-xs text-[#637084]/40" aria-hidden="true">•</span>
+            <span class="text-xs font-mono font-semibold text-[#637084]/70">
+              {project.number}
+            </span>
+          </>
+        )}
+      </div>
+
+      {/* Título */}
+      <h3 class="mt-3 text-2xl font-extrabold tracking-tight text-[#17201c] sm:text-3xl lg:text-[2.15rem] lg:leading-tight">
+        {project.title}
+      </h3>
+
+      {/* Descripción */}
+      <p class="mt-4 text-sm leading-relaxed text-[#526071] sm:text-base">
+        {project.description}
+      </p>
+
+      {/* Tecnologías */}
+      <div class="mt-6 flex flex-col gap-2.5">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#637084]/90">
+          Tecnologías
+        </span>
+        <div class="flex flex-wrap gap-2" aria-label="Tecnologías utilizadas">
+          {project.technologies.map((technologyKey) => {
+            const technology = technologyMeta[technologyKey];
+            return (
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full border border-[#17201c]/10 bg-[#f6f4ef] px-3 py-1.5 text-xs font-semibold text-[#27364a] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--tech-color)] hover:text-[var(--tech-color)] hover:shadow-xs"
+                style={`--tech-color: ${technology.color}`}
+              >
+                <TechnologyIcon icon={technologyKey} size={15} />
+                <span>{technology.label}</span>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Botón de Acción estilo Pill con Flecha */}
+      <div class="mt-8 pt-1">
+        <a
+          href={project.href}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          class="inline-flex items-center gap-2.5 rounded-full bg-[#1c232d] px-6 py-3 text-sm font-bold text-[#f6f4ef] transition-all duration-200 hover:bg-[#e85d35] hover:gap-3.5 hover:shadow-md"
+          aria-label={`Ver ${project.title}`}
+        >
+          <span>{project.href.startsWith("#") ? "Contactar para más detalles" : "Ver proyecto"}</span>
+          <span class="text-base transition-transform duration-200" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Columna Visual / Mockup */}
+    <div class="w-full flex-1 lg:max-w-[50%]">
+      <div class="relative flex aspect-[16/11] w-full items-center justify-center overflow-hidden rounded-2xl bg-[#1d2b3a] p-4 shadow-inner sm:p-6 lg:p-7">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_70%)]"></div>
+
+        {project.image ? (
+          <a
+            href={project.href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            class="relative z-10 block w-full overflow-hidden rounded-xl border border-white/15 bg-[#111315] shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            {/* Barra de ventana mockup */}
+            <div class="flex items-center gap-1.5 border-b border-white/10 bg-[#16202c] px-3 py-2">
+              <span class="size-2 rounded-full bg-[#e85d35]/80"></span>
+              <span class="size-2 rounded-full bg-amber-400/80"></span>
+              <span class="size-2 rounded-full bg-emerald-400/80"></span>
+              <span class="ml-2 truncate text-[10px] font-mono text-white/50">{project.href.replace(/^https?:\/\//, '')}</span>
+            </div>
+            <img
+              src={project.image}
+              alt={`Vista previa de ${project.title}`}
+              class="aspect-[16/10] w-full object-cover object-top"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        ) : (
+          <div class="relative z-10 flex h-full w-full flex-col justify-between rounded-xl border border-white/15 bg-[#16202c] p-5 shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div class="flex items-center gap-1.5">
+                <span class="size-2.5 rounded-full bg-[#e85d35]/80"></span>
+                <span class="size-2.5 rounded-full bg-amber-400/80"></span>
+                <span class="size-2.5 rounded-full bg-emerald-400/80"></span>
+              </div>
+              <span class="font-mono text-xs text-white/40">{project.category}</span>
+            </div>
+            <div class="my-auto flex flex-col items-center justify-center py-6 text-center">
+              <div class="mb-3 grid size-12 place-items-center rounded-2xl border border-white/10 bg-white/5 text-[#e85d35]">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <h4 class="text-base font-bold text-white">{project.title}</h4>
+              <p class="mt-1 max-w-xs text-xs text-white/60">Arquitectura de alto rendimiento & componentes web escalables</p>
+            </div>
+            <div class="flex items-center justify-between border-t border-white/10 pt-3 text-[11px] text-white/50">
+              <span class="font-mono">Stack activo</span>
+              <span class="font-mono font-semibold text-[#e85d35]">{project.technologies.slice(0, 3).join(" • ")}</span>
+            </div>
+          </div>
         )}
       </div>
     </div>
 
-    <div class="flex items-center justify-between gap-4">
-      <h3 class="text-lg font-extrabold tracking-[-.06em] text-black sm:text-xl">{project.title}</h3>
-      <span class="project-link" aria-hidden="true">&#8601;</span>
-    </div>
-
-    <p class="text-sm leading-[1.7] text-[#637084]">{project.description}</p>
-
-    <div class="flex flex-wrap gap-2" aria-label="Tecnolog&iacute;as utilizadas">
-      {project.technologies.map((technologyKey) => {
-        const technology = technologyMeta[technologyKey];
-
-        return (
-          <span class="project-technology" role="img" aria-label={technology.label} style={`--technology-color: ${technology.color}`}>
-            <TechnologyIcon icon={technologyKey} size={18} />
-            <span class="project-technology-name">{technology.label}</span>
-          </span>
-        );
-      })}
-    </div>
-  </a>
+  </div>
 </article>
+
